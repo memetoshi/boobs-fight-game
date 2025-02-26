@@ -1,0 +1,172 @@
+/* Dégradé de fond du rose vers le rose pâle */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #ff9eb3, #ffe4ec);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.10);
+  padding: 10px 20px 30px 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 850px;
+  text-align: center;
+}
+
+h1 .title {
+  font-size: 2rem;
+  color: #ff6b81;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#fightButton {
+  background-color: #ff6b81;
+  color: white;
+}
+
+#leaderboardButton {
+  background-color: #1e90ff;
+  color: white;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+#duelSection {
+  margin-top: 30px;
+}
+
+.images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.vs {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* Images avec coins arrondis et hover */
+.image-container {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  cursor: pointer;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+  transform: scale(1.05);
+}
+
+/* Effet hover avec overlay */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  opacity: 0;
+  transition: all 0.3s ease;
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.image-container:hover .overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+}
+
+/* 🟢 Affichage responsive */
+
+/* ✅ Pour les écrans < 600px (mobile) : affichage vertical avec VS entre les images */
+@media (max-width: 600px) {
+  .images {
+    flex-direction: column;
+  }
+
+  .vs {
+    order: 2; /* Le texte VS se place entre les images */
+  }
+
+  .image-container:first-child {
+    order: 1;
+  }
+
+  .image-container:last-child {
+    order: 3;
+  }
+
+  .image-container {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* ✅ Pour les écrans ≥ 600px (tablette et desktop) : affichage horizontal avec VS au milieu */
+@media (min-width: 600px) {
+  .images {
+    flex-direction: row;
+  }
+
+  .image-container {
+    width: 250px;
+    height: 250px;
+  }
+
+  .vs {
+    order: 2; /* Le VS est entre les deux images */
+  }
+
+  .image-container:first-child {
+    order: 1;
+  }
+
+  .image-container:last-child {
+    order: 3;
+  }
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boobs Fight</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>👙 <span class="title">Boobs Fight</span> 👊</h1>
+    <div class="buttons">
+      <button id="fightButton">🔥 Fight</button>
+      <button id="leaderboardButton">🏆 Leaderboard</button>
+    </div>
+
+    <div id="duelSection" class="hidden">
+      <h2>Vote for your favorite!</h2>
+      <div class="images">
+        <div class="image-container" onclick="vote('image1')">
+          <div class="overlay">VOTE</div>
+          <img id="image1" src="1.jpg" alt="Image 1">
+        </div>
+        <div class="vs">VS</div>
+        <div class="image-container" onclick="vote('image2')">
+          <div class="overlay">VOTE</div>
+          <img id="image2" src="2.jpg" alt="Image 2">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
