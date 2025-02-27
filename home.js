@@ -1,16 +1,17 @@
 document.addEventListener("DOMContentLoaded", async function () {
     let supabase;
 
-    async function fetchSupabaseCredentials() {
-        try {
-            const response = await fetch("/get_supabase_credentials");
-            const data = await response.json();
-            supabase = supabase.createClient(data.supabaseUrl, data.supabaseKey);
-        } catch (error) {
-            console.error("Error fetching Supabase credentials:", error);
-            alert("Failed to connect to Supabase.");
-        }
+async function fetchSupabaseCredentials() {
+    try {
+        const response = await fetch("http://127.0.0.1:5000/get_supabase_credentials"); // Mets ici ton IP locale si nécessaire
+        const data = await response.json();
+        supabase = supabase.createClient(data.supabaseUrl, data.supabaseKey);
+        console.log("✅ Supabase connecté avec succès !");
+    } catch (error) {
+        console.error("❌ Erreur lors de la connexion à Supabase :", error);
+        alert("Failed to connect to Supabase.");
     }
+}
 
     await fetchSupabaseCredentials();
 
