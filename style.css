@@ -11,25 +11,35 @@ body {
 }
 
 .container {
-  background-color: rgba(255, 255, 255, 0.10);
-  padding: 10px 20px 30px 20px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px;
   border-radius: 16px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 850px;
+  width: 90%;
+  max-width: 600px;
   text-align: center;
 }
 
-h1 .title {
-  font-size: 2rem;
+h1 {
+  font-size: 2.2rem;
   color: #ff6b81;
+  margin-bottom: 20px;
 }
 
-.buttons {
+.form-group {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="file"] {
+  padding: 10px;
+  width: 80%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 5px;
 }
 
 button {
@@ -39,14 +49,15 @@ button {
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
+  margin-top: 10px;
 }
 
-#fightButton {
+#saveCharacter {
   background-color: #ff6b81;
   color: white;
 }
 
-#leaderboardButton {
+#editCharacter {
   background-color: #1e90ff;
   color: white;
 }
@@ -55,6 +66,27 @@ button:hover {
   transform: scale(1.05);
 }
 
+.character-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.character-preview img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin: 5px;
+  border: 2px solid #ff6b81;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ✅ Styles spécifiques pour la page index */
 #duelSection {
   margin-top: 30px;
 }
@@ -74,7 +106,6 @@ button:hover {
   text-align: center;
 }
 
-/* Images avec coins arrondis et hover */
 .image-container {
   position: relative;
   width: 250px;
@@ -96,7 +127,6 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Effet hover avec overlay */
 .overlay {
   position: absolute;
   top: 0;
@@ -122,50 +152,39 @@ button:hover {
 }
 
 /* 🟢 Affichage responsive */
-
-/* ✅ Pour les écrans < 600px (mobile) : affichage vertical avec VS entre les images */
 @media (max-width: 600px) {
   .images {
     flex-direction: column;
   }
-
   .vs {
-    order: 2; /* Le texte VS se place entre les images */
+    order: 2;
   }
-
   .image-container:first-child {
     order: 1;
   }
-
   .image-container:last-child {
     order: 3;
   }
-
   .image-container {
     width: 200px;
     height: 200px;
   }
 }
 
-/* ✅ Pour les écrans ≥ 600px (tablette et desktop) : affichage horizontal avec VS au milieu */
 @media (min-width: 600px) {
   .images {
     flex-direction: row;
   }
-
   .image-container {
     width: 250px;
     height: 250px;
   }
-
   .vs {
-    order: 2; /* Le VS est entre les deux images */
+    order: 2;
   }
-
   .image-container:first-child {
     order: 1;
   }
-
   .image-container:last-child {
     order: 3;
   }

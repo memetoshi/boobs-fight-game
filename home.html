@@ -6,32 +6,36 @@
     <title>Boobs Fight - Home</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="supabase_client.js"></script>
     <script defer src="home.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container home-container">
         <h1>Boobs Fight</h1>
         
-        <div id="characterForm">
+        <div id="characterForm" class="form-section">
             <h2>Create Your Character</h2>
-            <label for="username">Username:</label>
-            <input type="text" id="username" required>
-            
-            <label for="boobsImage">Upload Boobs Image:</label>
-            <input type="file" id="boobsImage" accept="image/*" required>
-            
-            <label for="buttImage">Upload Butt Image:</label>
-            <input type="file" id="buttImage" accept="image/*" required>
-            
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="boobsImage">Upload Boobs Image:</label>
+                <input type="file" id="boobsImage" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="buttImage">Upload Butt Image:</label>
+                <input type="file" id="buttImage" accept="image/*">
+            </div>
             <button id="saveCharacter">Save Character</button>
         </div>
         
         <div id="characterDisplay" class="hidden">
             <h2>Your Character</h2>
             <p id="displayUsername"></p>
-            <img id="displayBoobs" src="" alt="Boobs Image">
-            <img id="displayButt" src="" alt="Butt Image">
+            <div class="character-preview">
+                <img id="displayBoobs" src="" alt="Boobs Image">
+                <img id="displayButt" src="" alt="Butt Image">
+            </div>
             <button id="editCharacter">Edit Character</button>
         </div>
     </div>
