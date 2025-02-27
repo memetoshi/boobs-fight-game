@@ -1,56 +1,77 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+    let supabase;
+
+    async function fetchSupabaseCredentials() {
+        try {
+            const response = await fetch("/get_supabase_credentials");
+            const data = await response.json();
+            supabase = supabase.createClient(data.supabaseUrl, data.supabaseKey);
+        } catch (error) {
+            console.error("Error fetching Supabase credentials:", error);
+            alert("Failed to connect to Supabase.");
+        }
+    }
+
+    await fetchSupabaseCredentials();
+
     const usernameInput = document.getElementById("username");
     const boobsImageInput = document.getElementById("boobsImage");
     const buttImageInput = document.getElementById("buttImage");
     const saveCharacterButton = document.getElementById("saveCharacter");
     const editCharacterButton = document.getElementById("editCharacter");
+    const goToLobbyButton = document.getElementById("goToLobby");
     const characterForm = document.getElementById("characterForm");
     const characterDisplay = document.getElementById("characterDisplay");
-    const boobsPreview = document.getElementById("boobsPreview");
-    const buttPreview = document.getElementById("buttPreview");
+    const displayUsername = document.getElementById("displayUsername");
+    const displayBoobs = document.getElementById("displayBoobs");
+    const displayButt = document.getElementById("displayButt");
 
-    function saveCharacter() {
+    async function saveCharacter() {
         const username = usernameInput.value;
-        const boobsImage = boobsImageInput.files[0];
-        const buttImage = buttImageInput.files[0];
+        const boobsFile = boobsImageInput.files[0];
+        const buttFile = buttImageInput.files[0];
 
-        if (!username || !boobsImage || !buttImage) {
+        if (!username || !boobsFile || !buttFile) {
             alert("Please fill all fields and upload both images.");
             return;
         }
 
-        const boobsURL = URL.createObjectURL(boobsImage);
-        const buttURL = URL.createObjectURL(buttImage);
+        const { data: boobsData, error: boobsError } = await supabase.storage.from("characters").upload(`boobs_${username}`, boobsFile);
+        const { data: buttData, error: buttError } = await supabase.storage.from("characters").upload(`butt_${username}`, buttFile);
 
-        localStorage.setItem("username", username);
-        localStorage.setItem("boobsImage", boobsURL);
-        localStorage.setItem("buttImage", buttURL);
+        if (boobsError || buttError) {
+            alert("Error uploading images. Try again.");
+            return;
+        }
 
-        displayCharacter();
+        const boobsUrl = supabase.storage.from("characters").getPublicUrl(`boobs_${username}`).publicUrl;
+        const buttUrl = supabase.storage.from("characters").getPublicUrl(`butt_${username}`).publicUrl;
+
+        const { error } = await supabase.from("players").upsert({ username, boobs_url: boobsUrl, butt_url: buttUrl });
+        if (error) {
+            alert("Error saving character. Try again.");
+            return;
+        }
+
+        displayCharacter(username, boobsUrl, buttUrl);
     }
 
-    function displayCharacter() {
-        const savedUsername = localStorage.getItem("username");
-        const savedBoobsImage = localStorage.getItem("boobsImage");
-        const savedButtImage = localStorage.getItem("buttImage");
+    async function displayCharacter(username, boobsUrl, buttUrl) {
+        displayUsername.textContent = username;
+        displayBoobs.src = boobsUrl;
+        displayButt.src = buttUrl;
 
-        if (savedUsername && savedBoobsImage && savedButtImage) {
-            usernameInput.value = savedUsername;
-            boobsPreview.src = savedBoobsImage;
-            buttPreview.src = savedButtImage;
-
-            characterForm.classList.add("hidden");
-            characterDisplay.classList.remove("hidden");
-        }
+        characterForm.classList.add("hidden");
+        characterDisplay.classList.remove("hidden");
+        goToLobbyButton.classList.remove("hidden");
     }
 
     function editCharacter() {
         characterForm.classList.remove("hidden");
         characterDisplay.classList.add("hidden");
+        goToLobbyButton.classList.add("hidden");
     }
 
     saveCharacterButton.addEventListener("click", saveCharacter);
     editCharacterButton.addEventListener("click", editCharacter);
-
-    displayCharacter();
 });

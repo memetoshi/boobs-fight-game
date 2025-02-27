@@ -3,47 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boobs Fight - Home</title>
+    <title>Boobs Fight - Create Character</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
- 
+    <script defer src="home.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">Boobs Fight</h1>
-        <h2>Create Your Character</h2>
-        <label for="username">Username:</label>
-        <input type="text" id="username" placeholder="Enter your username">
+    <div class="container home-container">
+        <h1>Boobs Fight</h1>
         
-        <label for="boobsImage">Upload Boobs Image:</label>
-        <input type="file" id="boobsImage" accept="image/*">
+        <div id="characterForm" class="form-section">
+            <h2>Create Your Character</h2>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="boobsImage">Upload Boobs Image:</label>
+                <input type="file" id="boobsImage" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="buttImage">Upload Butt Image:</label>
+                <input type="file" id="buttImage" accept="image/*">
+            </div>
+            <button id="saveCharacter">Save Character</button>
+        </div>
         
-        <label for="buttImage">Upload Butt Image:</label>
-        <input type="file" id="buttImage" accept="image/*">
-        
-        <button id="saveCharacter">Save Character</button>
-        
-        <h2>Your Character</h2>
-        <img id="boobsPreview" src="" alt="Boobs Image">
-        <img id="buttPreview" src="" alt="Butt Image">
-        <button id="editCharacter">Edit Character</button>
-        
-        <!-- Bouton pour aller au lobby -->
-        <button id="goToLobby" style="display: none;" onclick="window.location.href='home.html'">Enter Lobby</button>
+        <div id="characterDisplay" class="hidden">
+            <h2>Your Character</h2>
+            <p id="displayUsername"></p>
+            <div class="character-preview">
+                <img id="displayBoobs" src="" alt="Boobs Image">
+                <img id="displayButt" src="" alt="Butt Image">
+            </div>
+            <button id="editCharacter">Edit Character</button>
+            <button id="goToLobby" class="hidden" onclick="window.location.href='lobby.html'">Enter Lobby</button>
+        </div>
     </div>
-    
-    <script src="home.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
